@@ -1,28 +1,30 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Inter, Plus_Jakarta_Sans, DM_Sans, Outfit } from 'next/font/google';
+import { Inter, Montserrat, Poppins, Plus_Jakarta_Sans } from 'next/font/google';
 
-// Primary font - Clean, modern sans-serif (similar to Qatar Airways)
-const headingFont = Outfit({
+// Primary font - Clean, modern sans-serif (similar to IndiGo Airlines)
+// IndiGo uses a clean, modern sans-serif font similar to Montserrat or Poppins
+const headingFont = Montserrat({
   variable: '--font-heading',
   subsets: ['latin'],
   display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
 });
 
-// Secondary font - Clean body text
-const bodyFont = DM_Sans({
+// Secondary font - Clean body text (similar to IndiGo's body font)
+const bodyFont = Inter({
   variable: '--font-body',
   subsets: ['latin'],
   display: 'swap',
   weight: ['300', '400', '500', '600', '700'],
 });
 
-// Alternative: If you prefer Inter for body
-// const bodyFont = Inter({
-//   variable: '--font-body',
+// Alternative: If you prefer Poppins (very clean and modern)
+// const headingFont = Poppins({
+//   variable: '--font-heading',
 //   subsets: ['latin'],
 //   display: 'swap',
+//   weight: ['300', '400', '500', '600', '700', '800', '900'],
 // });
 
 export const metadata: Metadata = {

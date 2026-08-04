@@ -62,23 +62,28 @@ export default function AirlineFAQ({ airlineName }: AirlineFAQProps) {
   };
 
   return (
-    <section className="py-4 sm:py-6 bg-white border-t border-[#E2E8F0]">
+    <section className="py-4 sm:py-6 bg-white border-t" style={{ borderColor: '#e2e8f0' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header - Left Aligned */}
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-2">
-            <HelpCircle className="w-5 h-5 text-[#1A3A6B]" />
-            <span className="text-xs font-semibold text-[#1A3A6B] uppercase tracking-wider">
+            <HelpCircle className="w-5 h-5" style={{ color: '#5e503f' }} />
+            <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>
               FAQ
             </span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#0A1628]">
+          <h2 className="text-2xl sm:text-3xl font-bold" style={{ color: '#3d3226' }}>
             Frequently Asked Questions
           </h2>
-          <p className="text-[#0A1628]/60 text-sm mt-1">
+          <p className="text-sm mt-1" style={{ color: '#2a242099' }}>
             Find answers to the most common questions about {airlineName} flights
           </p>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-[#1A3A6B] to-[#4A8BCF] mt-2" />
+          <div 
+            className="w-12 h-0.5 mt-2"
+            style={{
+              background: `linear-gradient(to right, #5e503f, #b8956e)`
+            }}
+          />
         </div>
 
         {/* FAQ List - Full Width */}
@@ -87,26 +92,33 @@ export default function AirlineFAQ({ airlineName }: AirlineFAQProps) {
             <div
               key={index}
               className={`
-                bg-[#F5F9FF] border border-[#E2E8F0] 
-                transition-all duration-300 overflow-hidden
-                ${openIndex === index ? 'border-[#4A8BCF] shadow-md' : 'hover:border-[#4A8BCF]/30 hover:shadow-sm'}
+                border transition-all duration-300 overflow-hidden
+                ${openIndex === index ? 'shadow-md' : 'hover:shadow-sm'}
               `}
+              style={{
+                backgroundColor: '#faf7f2',
+                borderColor: openIndex === index ? '#b8956e' : '#e2e8f0'
+              }}
             >
               <button
                 onClick={() => toggleFAQ(index)}
                 className="w-full px-4 sm:px-5 py-3 flex items-center justify-between gap-4 text-left"
               >
-                <span className="text-sm sm:text-base font-semibold text-[#0A1628] flex-1">
+                <span className="text-sm sm:text-base font-semibold flex-1" style={{ color: '#3d3226' }}>
                   {faq.question}
                 </span>
                 <span className={`
                   flex-shrink-0 w-7 h-7 flex items-center justify-center
                   transition-all duration-300
                   ${openIndex === index 
-                    ? 'bg-gradient-to-r from-[#1A3A6B] to-[#4A8BCF] text-white' 
-                    : 'bg-[#E8F0FE] text-[#1A3A6B]'
+                    ? 'text-white' 
+                    : ''
                   }
-                `}>
+                `}
+                style={{
+                  backgroundColor: openIndex === index ? '#5e503f' : '#eae0d5',
+                  color: openIndex === index ? 'white' : '#5e503f'
+                }}>
                   {openIndex === index ? (
                     <ChevronUp size={16} />
                   ) : (
@@ -117,16 +129,17 @@ export default function AirlineFAQ({ airlineName }: AirlineFAQProps) {
               
               {openIndex === index && (
                 <div className="px-4 sm:px-5 pb-4">
-                  <div className="pt-3 border-t border-[#E2E8F0]">
-                    <p className="text-sm text-[#0A1628]/70 leading-relaxed">
+                  <div className="pt-3 border-t" style={{ borderColor: '#e2e8f0' }}>
+                    <p className="text-sm leading-relaxed" style={{ color: '#2a2420B3' }}>
                       {faq.answer}
                     </p>
-                    <div className="mt-3 flex items-center gap-2 text-xs text-[#1A3A6B]">
+                    <div className="mt-3 flex items-center gap-2 text-xs" style={{ color: '#5e503f' }}>
                       <Phone size={14} />
                       <span>Need help? Call us: </span>
                       <a 
                         href={`tel:${phoneNumber.replace(/\s/g, '')}`}
-                        className="font-semibold hover:text-[#4A8BCF] transition-colors"
+                        className="font-semibold transition-colors"
+                        style={{ color: '#5e503f' }}
                       >
                         {phoneNumber}
                       </a>
@@ -140,12 +153,16 @@ export default function AirlineFAQ({ airlineName }: AirlineFAQProps) {
 
         {/* Bottom CTA */}
         <div className="mt-6 text-left">
-          <p className="text-sm text-[#0A1628]/60">
+          <p className="text-sm" style={{ color: '#2a242099' }}>
             Still have questions? Our travel experts are here to help you 24/7
           </p>
           <a
             href={`tel:${phoneNumber.replace(/\s/g, '')}`}
-            className="inline-flex items-center gap-2 mt-2 px-5 py-2.5 bg-gradient-to-r from-[#1A3A6B] to-[#4A8BCF] text-white font-semibold hover:from-[#2B5A9E] hover:to-[#7BAEE0] transition-all duration-300 shadow-lg shadow-[#1A3A6B]/20"
+            className="inline-flex items-center gap-2 mt-2 px-5 py-2.5 text-white font-semibold transition-all duration-300 shadow-lg"
+            style={{
+              background: `linear-gradient(to right, #5e503f, #b8956e)`,
+              boxShadow: `0 10px 15px -3px #5e503f33`
+            }}
           >
             <Phone size={16} />
             Call Us Now: {phoneNumber}

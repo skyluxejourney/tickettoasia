@@ -1,6 +1,6 @@
 "use client";
 
-import { Phone, ArrowRight, Star, Users, Shield, Tag, Sparkles } from "lucide-react";
+import { Phone, ArrowRight, Star, Users, Shield, Tag, Sparkles, Clock, Award } from "lucide-react";
 import { COMPANY, CONTACT } from "@/app/constants";
 
 export default function ExclusiveDealsPoster() {
@@ -31,25 +31,50 @@ export default function ExclusiveDealsPoster() {
   return (
     <section className="py-8 sm:py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative bg-gradient-to-r from-[#0A1628] via-[#1A3A6B] to-[#2B5A9E] overflow-hidden shadow-2xl">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#4A8BCF] rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#7BAEE0] rounded-full blur-3xl" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#4A8BCF] rounded-full blur-3xl" />
+        <div 
+          className="relative overflow-hidden shadow-2xl"
+          style={{
+            background: `linear-gradient(135deg, #3d3226, #5e503f, #7a6a56)`
+          }}
+        >
+          {/* Background Pattern - Updated with warm tones */}
+          <div className="absolute inset-0 opacity-20">
+            <div 
+              className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl"
+              style={{ backgroundColor: '#b8956e' }}
+            />
+            <div 
+              className="absolute bottom-0 left-0 w-72 h-72 rounded-full blur-3xl"
+              style={{ backgroundColor: '#eae0d5' }}
+            />
+            <div 
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-3xl"
+              style={{ backgroundColor: '#b8956e33' }}
+            />
           </div>
 
-          {/* Static Particles - No Math.random() */}
+          {/* Decorative Pattern Lines */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#eae0d5] to-transparent" />
+            <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#eae0d5] to-transparent" />
+            <div className="absolute top-1/2 left-0 w-px h-full bg-gradient-to-b from-transparent via-[#eae0d5] to-transparent" />
+            <div className="absolute top-1/2 right-0 w-px h-full bg-gradient-to-b from-transparent via-[#eae0d5] to-transparent" />
+          </div>
+
+          {/* Static Particles */}
           <div className="absolute inset-0 overflow-hidden">
             {particles.map((particle, i) => (
               <div
                 key={i}
-                className="absolute w-1 h-1 bg-[#7BAEE0]/30 rounded-full animate-float"
+                className="absolute rounded-full animate-float"
                 style={{
                   left: particle.left,
                   top: particle.top,
                   animationDelay: particle.delay,
                   animationDuration: particle.duration,
+                  backgroundColor: i % 2 === 0 ? '#eae0d54D' : '#b8956e33',
+                  width: i % 3 === 0 ? '3px' : '2px',
+                  height: i % 3 === 0 ? '3px' : '2px',
                 }}
               />
             ))}
@@ -58,56 +83,71 @@ export default function ExclusiveDealsPoster() {
           <div className="relative flex flex-col lg:flex-row items-stretch">
             {/* Left Content */}
             <div className="flex-1 p-6 sm:p-8 lg:p-10 xl:p-12 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 bg-[#4A8BCF]/20 backdrop-blur-sm rounded-full px-4 py-1.5 mb-4">
-                <Sparkles size={16} className="text-[#7BAEE0]" />
-                <span className="text-white text-xs sm:text-sm font-semibold tracking-wider uppercase">
-                  Exclusive Savings
+              {/* Premium Badge - New Design */}
+              <div className="inline-flex items-center gap-2 backdrop-blur-sm rounded-full px-5 py-2 mb-6 border border-[#eae0d5]/20" style={{ backgroundColor: '#5e503f66' }}>
+                <Award size={16} style={{ color: '#eae0d5' }} />
+                <span className="text-white text-xs font-semibold tracking-[0.2em] uppercase">
+                  Premium Travel Deals
                 </span>
               </div>
 
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white !text-white mb-4 leading-tight">
-                Save Up to{" "}
-                <span className="text-[#7BAEE0] relative">
-                  20%
-                  <span className="absolute -bottom-1 left-0 w-full h-1 bg-[#7BAEE0]/30 rounded-full blur-sm" />
+                Exclusive{" "}
+                <span className="relative">
+                  <span className="relative z-10" style={{ color: '#eae0d5' }}>
+                    Savings
+                  </span>
+                  <span 
+                    className="absolute -bottom-1 left-0 w-full h-1 rounded-full blur-sm"
+                    style={{ backgroundColor: '#eae0d54D' }}
+                  />
+                </span>
+                <br />
+                <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light opacity-90">
+                  Up to <span className="font-bold" style={{ color: '#eae0d5' }}>20%</span> Off
                 </span>
               </h2>
 
-              <p className="text-white/90 !text-white/90 text-sm sm:text-base lg:text-lg max-w-lg mx-auto lg:mx-0 mb-6">
+              <p className="text-white/90 !text-white/90 text-sm sm:text-base lg:text-lg max-w-lg mx-auto lg:mx-0 mb-6 leading-relaxed">
                 Call now and let our professional agents book your ticket at the best price.
                 Limited time offer – don't miss out!
               </p>
 
-              {/* Trust Badges */}
+              {/* Trust Badges - Updated Design */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 mb-6">
-                <div className="flex items-center gap-2 text-white/80 !text-white/80">
-                  <Star size={16} className="text-yellow-400 fill-yellow-400" />
-                  <span className="text-sm font-medium">4.9/5 Rating</span>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10" style={{ backgroundColor: '#5e503f4D' }}>
+                  <Star size={14} className="text-yellow-400 fill-yellow-400" />
+                  <span className="text-white/90 text-xs font-medium">4.9/5 Rating</span>
                 </div>
-                <div className="flex items-center gap-2 text-white/80 !text-white/80">
-                  <Users size={16} className="text-white/80" />
-                  <span className="text-sm font-medium">2.5M+ Bookings</span>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10" style={{ backgroundColor: '#5e503f4D' }}>
+                  <Users size={14} className="text-white/80" />
+                  <span className="text-white/90 text-xs font-medium">2.5M+ Bookings</span>
                 </div>
-                <div className="flex items-center gap-2 text-white/80 !text-white/80">
-                  <Shield size={16} className="text-white/80" />
-                  <span className="text-sm font-medium">Secure Payment</span>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10" style={{ backgroundColor: '#5e503f4D' }}>
+                  <Shield size={14} className="text-white/80" />
+                  <span className="text-white/90 text-xs font-medium">Secure Payment</span>
                 </div>
               </div>
 
-              {/* CTA Buttons */}
+              {/* CTA Buttons - Updated Design */}
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4">
                 <a
                   href={`tel:${CONTACT.phoneRaw}`}
-                  className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-5 sm:px-6 py-3 w-full sm:w-auto hover:bg-white/20 transition-colors border border-white/20"
+                  className="flex items-center gap-3 backdrop-blur-sm rounded-full px-5 sm:px-6 py-3 w-full sm:w-auto transition-all duration-300 border border-white/20 hover:scale-105"
+                  style={{ backgroundColor: '#5e503f66' }}
                 >
-                  <Phone size={20} className="text-[#7BAEE0] animate-pulse" />
+                  <Phone size={20} className="animate-pulse" style={{ color: '#eae0d5' }} />
                   <span className="text-white !text-white font-bold text-base sm:text-lg tracking-wider">
                     {CONTACT.phone}
                   </span>
                 </a>
                 <a
                   href={`tel:${CONTACT.phoneRaw}`}
-                  className="bg-gradient-to-r from-[#4A8BCF] to-[#7BAEE0] text-white !text-white px-6 sm:px-8 py-3 rounded-full font-semibold hover:from-[#2B5A9E] hover:to-[#4A8BCF] transition-all duration-300 shadow-lg shadow-[#1A3A6B]/40 hover:shadow-xl hover:shadow-[#1A3A6B]/50 whitespace-nowrap w-full sm:w-auto flex items-center justify-center gap-2"
+                  className="text-[#3d3226] px-6 sm:px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 whitespace-nowrap w-full sm:w-auto flex items-center justify-center gap-2"
+                  style={{
+                    background: `linear-gradient(135deg, #eae0d5, #f5efe8)`,
+                    boxShadow: `0 10px 20px -5px #0000004D`
+                  }}
                 >
                   <span>Call Now</span>
                   <ArrowRight size={18} />
@@ -115,30 +155,50 @@ export default function ExclusiveDealsPoster() {
               </div>
             </div>
 
-            {/* Right Image - New exclusive deals image */}
-            <div className="relative lg:w-1/2 min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] xl:min-h-[350px]">
+            {/* Right Image - New warm-toned image */}
+            <div className="relative lg:w-1/2 min-h-[250px] sm:min-h-[300px] lg:min-h-[350px] xl:min-h-[400px]">
               <img
-                src="https://images.unsplash.com/photo-1556741533-6e6a62bd8b49?w=800&h=600&fit=crop&crop=center"
+                src="/images/exclusive.png"
                 alt="Exclusive Travel Deals"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-l from-[#0A1628]/60 to-transparent" />
+              <div 
+                className="absolute inset-0"
+                style={{ background: `linear-gradient(to right, #3d322699, transparent 40%, transparent)` }}
+              />
               
-              {/* Floating Savings Badge */}
-              <div className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 bg-white p-2 sm:p-3 shadow-xl">
-                <div className="bg-gradient-to-r from-[#1A3A6B] to-[#4A8BCF] px-4 sm:px-6 py-2 sm:py-3 text-white text-center">
-                  <div className="text-xs sm:text-sm font-bold">Save Up To</div>
-                  <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold">20%</div>
+              {/* Floating Savings Badge - Updated Design */}
+              <div className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 bg-white p-3 sm:p-4 shadow-2xl rotate-3">
+                <div 
+                  className="px-4 sm:px-6 py-2 sm:py-3 text-white text-center"
+                  style={{
+                    background: `linear-gradient(135deg, #5e503f, #b8956e)`
+                  }}
+                >
+                  <div className="text-xs sm:text-sm font-bold tracking-wider">Save Up To</div>
+                  <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold">20%</div>
+                  <div className="text-[8px] sm:text-[10px] opacity-80">Limited Time</div>
                 </div>
               </div>
 
-              {/* Destination Tag */}
-              <div className="absolute bottom-4 left-4 bg-[#0A1628]/80 backdrop-blur-sm px-4 py-2">
-                <div className="flex items-center gap-2 text-white text-xs sm:text-sm">
-                  <Tag size={14} className="text-[#4A8BCF]" />
-                  <span>Exclusive Deals Available</span>
+              {/* Floating Trust Badge - New */}
+              <div className="absolute bottom-6 left-4 backdrop-blur-sm px-4 py-2.5 rounded-lg border border-white/10" style={{ backgroundColor: '#3d3226CC' }}>
+                <div className="flex items-center gap-3 text-white">
+                  <div className="flex items-center gap-1">
+                    <Clock size={14} style={{ color: '#b8956e' }} />
+                    <span className="text-xs font-medium">24/7 Support</span>
+                  </div>
+                  <span className="w-px h-4 bg-white/20" />
+                  <div className="flex items-center gap-1">
+                    <Tag size={14} style={{ color: '#b8956e' }} />
+                    <span className="text-xs font-medium">Exclusive Deals</span>
+                  </div>
                 </div>
               </div>
+
+              {/* Corner Accent */}
+              <div className="absolute top-6 left-6 w-12 h-12 border-t-2 border-l-2 border-[#eae0d5]/20" />
+              <div className="absolute bottom-6 right-6 w-12 h-12 border-b-2 border-r-2 border-[#eae0d5]/20" />
             </div>
           </div>
         </div>
@@ -151,20 +211,20 @@ export default function ExclusiveDealsPoster() {
             opacity: 0.3; 
           }
           25% { 
-            transform: translateY(-10px) translateX(5px) rotate(5deg); 
-            opacity: 0.6; 
+            transform: translateY(-15px) translateX(8px) rotate(3deg); 
+            opacity: 0.7; 
           }
           50% { 
-            transform: translateY(0) translateX(-5px) rotate(0deg); 
+            transform: translateY(0) translateX(-8px) rotate(0deg); 
             opacity: 0.3; 
           }
           75% { 
-            transform: translateY(10px) translateX(5px) rotate(-5deg); 
-            opacity: 0.6; 
+            transform: translateY(15px) translateX(8px) rotate(-3deg); 
+            opacity: 0.7; 
           }
         }
         .animate-float {
-          animation: float 4s ease-in-out infinite;
+          animation: float 5s ease-in-out infinite;
         }
       `}</style>
     </section>

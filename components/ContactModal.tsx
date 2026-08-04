@@ -21,7 +21,7 @@ export default function ContactModal({ isOpen, onClose, selectedItem = "" }: Con
       />
 
       {/* Modal */}
-      <div className="relative bg-white rounded-2xl max-w-md w-full shadow-2xl animate-in slide-in-from-bottom-4 duration-300 border border-[#E2E8F0]">
+      <div className="relative bg-white rounded-2xl max-w-md w-full shadow-2xl animate-in slide-in-from-bottom-4 duration-300 border" style={{ borderColor: '#e2e8f0' }}>
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -31,7 +31,12 @@ export default function ContactModal({ isOpen, onClose, selectedItem = "" }: Con
         </button>
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#1A3A6B] to-[#4A8BCF] rounded-t-2xl p-6 text-white">
+        <div 
+          className="rounded-t-2xl p-6 text-white"
+          style={{
+            background: `linear-gradient(to right, #5e503f, #b8956e)`
+          }}
+        >
           <div className="flex items-center gap-3">
             <div className="bg-white/20 p-2 rounded-xl">
               <Ticket size={24} className="text-white" />
@@ -50,9 +55,9 @@ export default function ContactModal({ isOpen, onClose, selectedItem = "" }: Con
         {/* Content */}
         <div className="p-6">
           <div className="text-center mb-6">
-            <p className="text-[#0A1628]/70 text-sm leading-relaxed">
+            <p className="text-sm leading-relaxed" style={{ color: '#2a2420B3' }}>
               Our team is ready to assist you with any questions about{" "}
-              <span className="font-semibold text-[#1A3A6B]">{selectedItem}</span>.
+              <span className="font-semibold" style={{ color: '#5e503f' }}>{selectedItem}</span>.
               Call us now for immediate support!
             </p>
           </div>
@@ -62,31 +67,51 @@ export default function ContactModal({ isOpen, onClose, selectedItem = "" }: Con
             {/* Phone */}
             <a
               href={`tel:${CONTACT.phoneRaw}`}
-              className="flex items-center gap-4 p-4 bg-[#F5F9FF] rounded-xl hover:bg-[#E8F0FE] transition-all duration-300 group border border-[#E2E8F0] hover:border-[#4A8BCF]/30"
+              className="flex items-center gap-4 p-4 rounded-xl transition-all duration-300 group border"
+              style={{
+                backgroundColor: '#faf7f2',
+                borderColor: '#e2e8f0',
+              }}
             >
-              <div className="bg-gradient-to-r from-[#1A3A6B] to-[#4A8BCF] p-3 rounded-xl text-white shadow-lg shadow-[#1A3A6B]/20 group-hover:shadow-[#1A3A6B]/30 transition-shadow">
+              <div 
+                className="p-3 rounded-xl text-white shadow-lg transition-shadow"
+                style={{
+                  background: `linear-gradient(to right, #5e503f, #b8956e)`,
+                  boxShadow: `0 10px 15px -3px #5e503f33`
+                }}
+              >
                 <Phone size={20} />
               </div>
               <div className="flex-1">
-                <p className="text-xs text-[#0A1628]/60">Call Us Now</p>
-                <p className="text-sm font-semibold text-[#0A1628] group-hover:text-[#1A3A6B] transition-colors">
+                <p className="text-xs" style={{ color: '#2a242099' }}>Call Us Now</p>
+                <p className="text-sm font-semibold transition-colors" style={{ color: '#2a2420' }}>
                   {CONTACT.phone}
                 </p>
               </div>
-              <PhoneCall size={16} className="text-[#4A8BCF] opacity-0 group-hover:opacity-100 transition-opacity" />
+              <PhoneCall size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: '#b8956e' }} />
             </a>
 
             {/* Email */}
             <a
               href={`mailto:${COMPANY.email}`}
-              className="flex items-center gap-4 p-4 bg-[#F5F9FF] rounded-xl hover:bg-[#E8F0FE] transition-all duration-300 group border border-[#E2E8F0] hover:border-[#4A8BCF]/30"
+              className="flex items-center gap-4 p-4 rounded-xl transition-all duration-300 group border"
+              style={{
+                backgroundColor: '#faf7f2',
+                borderColor: '#e2e8f0',
+              }}
             >
-              <div className="bg-gradient-to-r from-[#1A3A6B] to-[#4A8BCF] p-3 rounded-xl text-white shadow-lg shadow-[#1A3A6B]/20 group-hover:shadow-[#1A3A6B]/30 transition-shadow">
+              <div 
+                className="p-3 rounded-xl text-white shadow-lg transition-shadow"
+                style={{
+                  background: `linear-gradient(to right, #5e503f, #b8956e)`,
+                  boxShadow: `0 10px 15px -3px #5e503f33`
+                }}
+              >
                 <Mail size={20} />
               </div>
               <div className="flex-1">
-                <p className="text-xs text-[#0A1628]/60">Email Us</p>
-                <p className="text-sm font-semibold text-[#0A1628] group-hover:text-[#1A3A6B] transition-colors">
+                <p className="text-xs" style={{ color: '#2a242099' }}>Email Us</p>
+                <p className="text-sm font-semibold transition-colors" style={{ color: '#2a2420' }}>
                   {COMPANY.email}
                 </p>
               </div>
@@ -94,8 +119,14 @@ export default function ContactModal({ isOpen, onClose, selectedItem = "" }: Con
           </div>
 
           {/* Special Note */}
-          <div className="mt-6 p-4 bg-[#E8F0FE] rounded-xl border border-[#4A8BCF]/20">
-            <p className="text-xs text-[#0A1628]/70 text-center">
+          <div 
+            className="mt-6 p-4 rounded-xl border"
+            style={{
+              backgroundColor: '#eae0d5',
+              borderColor: '#b8956e33'
+            }}
+          >
+            <p className="text-xs text-center" style={{ color: '#2a2420B3' }}>
               {CONTACT.supportHours} for all your travel needs
             </p>
           </div>
@@ -103,7 +134,12 @@ export default function ContactModal({ isOpen, onClose, selectedItem = "" }: Con
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="w-full mt-4 bg-[#F5F9FF] hover:bg-[#E8F0FE] text-[#0A1628] font-semibold py-3 rounded-xl transition-colors border border-[#E2E8F0]"
+            className="w-full mt-4 font-semibold py-3 rounded-xl transition-colors border"
+            style={{
+              backgroundColor: '#faf7f2',
+              color: '#2a2420',
+              borderColor: '#e2e8f0'
+            }}
           >
             Close
           </button>

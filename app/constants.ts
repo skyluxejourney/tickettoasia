@@ -30,7 +30,7 @@ export const CONTACT = {
 export const BRAND = {
   name: COMPANY.name,
   tagline: "Travel & Adventures",
-  logo: "/logo/ticket.png", // Consider updating logo path if you have a new logo
+  logo: "/logo/ticketlogo.png", // Consider updating logo path if you have a new logo
   favicon: "/favicon.ico",
 };
 
