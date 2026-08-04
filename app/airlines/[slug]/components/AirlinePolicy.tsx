@@ -101,13 +101,13 @@ export default function AirlinePolicy({ airlineName }: AirlinePolicyProps) {
                     {/* Brand */}
                     <div className="mb-6">
                       <div className="inline-flex items-center gap-3 backdrop-blur-md border border-white/10 text-white px-4 py-3" style={{ backgroundColor: '#5e503f1A' }}>
-                        <Image
-                          src="/logo/ticket.png"
-                          alt={BRAND.name}
-                          width={28}
-                          height={28}
-                          className="object-contain"
-                        />
+                       <Image
+  src="/logo/ticketlogo.png"
+  alt={BRAND.name}
+  width={24}
+  height={24}
+  className="object-contain brightness-0 invert"
+/>
 
                         <div className="leading-tight">
                           <p className="text-sm font-bold tracking-wide !text-white">
@@ -145,14 +145,13 @@ export default function AirlinePolicy({ airlineName }: AirlinePolicyProps) {
                       {/* With Brand - Updated accent color */}
                       <div className="flex items-center gap-3 text-lg text-white/90">
                         <span className="!text-white">with</span>
-
-                        <Image
-                          src="/logo/ticket.png"
-                          alt={BRAND.name}
-                          width={24}
-                          height={24}
-                          className="object-contain"
-                        />
+<Image
+  src="/logo/ticketlogo.png"
+  alt={BRAND.name}
+  width={24}
+  height={24}
+  className="object-contain brightness-0 invert"
+/>
 
                         <span className="font-extrabold !text-white italic" style={{ color: '#eae0d5' }}>
                           {BRAND.name}
