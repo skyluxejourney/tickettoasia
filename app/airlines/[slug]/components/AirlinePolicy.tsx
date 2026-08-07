@@ -2,26 +2,33 @@
 
 import Image from "next/image";
 import { Phone, ChevronRight, Calendar, Edit, CheckCircle, ArrowRight, Clock, Headphones } from "lucide-react";
-import { airlinesData } from "../constants";
 import { BRAND, COMPANY } from "@/app/constants";
+import type { AirlineData } from "../constants";
 
 interface AirlinePolicyProps {
-  airlineName: string;
+  airline: AirlineData;
 }
 
-export default function AirlinePolicy({ airlineName }: AirlinePolicyProps) {
-  // Find the airline data from constants
-  const airlineEntry = Object.entries(airlinesData).find(
-    ([_, data]) => data.name === airlineName
-  );
+export default function AirlinePolicy({ airline }: AirlinePolicyProps) {
+  // Get phone number from airline data
+  const phoneNumber = airline.airline.phoneNumber || COMPANY.phone || "+1-888-845-0220";
   
-  const airline = airlineEntry ? airlineEntry[1] : null;
-  
-  // Get phone number from constants or use default
-  const phoneNumber = airline?.phoneNumber || COMPANY.phone || "+1-888-845-0220";
-  
-  // Get FAQs directly from constants
-  const faqs = airline?.faqs || [];
+  // Get ONLY policy-related FAQs
+  const policyFaqs = airline.faqs.filter((faq) => {
+    const question = faq.question.toLowerCase();
+    return (
+      question.includes('policy') ||
+      question.includes('change') ||
+      question.includes('cancel') ||
+      question.includes('reschedule') ||
+      question.includes('refund') ||
+      question.includes('fee') ||
+      question.includes('same-day') ||
+      question.includes('modification') ||
+      question.includes('difference') ||
+      question.includes('fare type')
+    );
+  });
 
   const steps = [
     {
@@ -50,7 +57,7 @@ export default function AirlinePolicy({ airlineName }: AirlinePolicyProps) {
             <div className="pr-0 lg:pr-8">
               {/* Heading */}
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight mb-3" style={{ color: '#3d3226' }}>
-                {airlineName} Flight Change, Reschedule & Cancellation
+                {airline.airline.name} Flight Change, Reschedule & Cancellation
               </h2>
               
               {/* Phone Number */}
@@ -101,13 +108,13 @@ export default function AirlinePolicy({ airlineName }: AirlinePolicyProps) {
                     {/* Brand */}
                     <div className="mb-6">
                       <div className="inline-flex items-center gap-3 backdrop-blur-md border border-white/10 text-white px-4 py-3" style={{ backgroundColor: '#5e503f1A' }}>
-                       <Image
-  src="/logo/ticketlogo.png"
-  alt={BRAND.name}
-  width={24}
-  height={24}
-  className="object-contain brightness-0 invert"
-/>
+                        <Image
+                          src="/logo/ticketlogo.png"
+                          alt={BRAND.name}
+                          width={24}
+                          height={24}
+                          className="object-contain brightness-0 invert"
+                        />
 
                         <div className="leading-tight">
                           <p className="text-sm font-bold tracking-wide !text-white">
@@ -124,7 +131,7 @@ export default function AirlinePolicy({ airlineName }: AirlinePolicyProps) {
                     <div className="space-y-3">
 
                       <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight !text-white">
-                        {airlineName}
+                        {airline.airline.name}
                       </h2>
 
                       <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold !text-white">
@@ -145,13 +152,13 @@ export default function AirlinePolicy({ airlineName }: AirlinePolicyProps) {
                       {/* With Brand - Updated accent color */}
                       <div className="flex items-center gap-3 text-lg text-white/90">
                         <span className="!text-white">with</span>
-<Image
-  src="/logo/ticketlogo.png"
-  alt={BRAND.name}
-  width={24}
-  height={24}
-  className="object-contain brightness-0 invert"
-/>
+                        <Image
+                          src="/logo/ticketlogo.png"
+                          alt={BRAND.name}
+                          width={24}
+                          height={24}
+                          className="object-contain brightness-0 invert"
+                        />
 
                         <span className="font-extrabold !text-white italic" style={{ color: '#eae0d5' }}>
                           {BRAND.name}
@@ -257,12 +264,12 @@ export default function AirlinePolicy({ airlineName }: AirlinePolicyProps) {
                 </div>
               </div>
 
-              {/* Policy Queries - Directly from constants */}
+              {/* Policy Queries - Only Policy Related FAQs */}
               <div className="space-y-4">
-                {faqs.map((faq, index) => (
+                {policyFaqs.map((faq, index) => (
                   <div
                     key={index}
-                    className="bg-white shadow-sm hover:shadow-md transition-all duration-300 p-5 border hover:border-[#b8956e]/30 group cursor-pointer"
+                    className="bg-white shadow-sm hover:shadow-md transition-all duration-300 p-5 border hover:border-[#b8956e]/30 group"
                     style={{
                       borderColor: '#e2e8f0'
                     }}
@@ -282,10 +289,7 @@ export default function AirlinePolicy({ airlineName }: AirlinePolicyProps) {
                         <h3 className="text-sm sm:text-base font-semibold transition-colors" style={{ color: '#3d3226' }}>
                           {faq.question}
                         </h3>
-                        <p className="text-xs sm:text-sm mt-1" style={{ color: '#2a242099' }}>
-                          {faq.answer.split('.')[0] + '.'}
-                        </p>
-                        <div className="mt-3 pt-3 border-t" style={{ borderColor: '#eae0d5' }}>
+                        <div className="mt-2">
                           <p className="text-xs sm:text-sm leading-relaxed" style={{ color: '#2a2420B3' }}>
                             {faq.answer}
                           </p>
@@ -321,7 +325,7 @@ export default function AirlinePolicy({ airlineName }: AirlinePolicyProps) {
         <div className="mt-12 pt-8 border-t" style={{ borderColor: '#e2e8f0' }}>
           <div className="text-center mb-8">
             <h3 className="text-2xl sm:text-3xl font-bold" style={{ color: '#3d3226' }}>
-              Change Your {airlineName} Flight with {BRAND.name}
+              Change Your {airline.airline.name} Flight with {BRAND.name}
             </h3>
             <div 
               className="w-16 h-1 mx-auto mt-3 rounded-full"

@@ -2,64 +2,47 @@
 
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Phone, HelpCircle } from "lucide-react";
-import { airlinesData } from "../constants";
+import type { AirlineData } from "../constants";
 
 interface AirlineFAQProps {
-  airlineName: string;
+  airline: AirlineData;
 }
 
-export default function AirlineFAQ({ airlineName }: AirlineFAQProps) {
+export default function AirlineFAQ({ airline }: AirlineFAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  // Find the airline data from constants
-  const airlineEntry = Object.entries(airlinesData).find(
-    ([_, data]) => data.name === airlineName
-  );
+  // Get data from airline object
+  const airlineName = airline.airline.name;
+  const phoneNumber = airline.airline.phoneNumber || "+1-888-845-0220";
   
-  const airline = airlineEntry ? airlineEntry[1] : null;
-  
-  // Get phone number from constants or use default
-  const phoneNumber = airline?.phoneNumber || "+1-888-845-0220";
-  
-  // Use FAQs from constants if available, otherwise use fallback
-  const faqs = airline?.faqs || [
-    {
-      question: `How do I change my ${airlineName} flight?`,
-      answer: `You can change your ${airlineName} flight online through the "Manage Booking" section on the airline's website. Simply enter your confirmation number and last name to access your reservation, then select "Change Flight" and choose your new travel dates. You can also call ${airlineName} customer service at ${phoneNumber} for assistance with changes. Changes made within 24 hours of booking are typically free.`,
-    },
-    {
-      question: `What is the ${airlineName} cancellation policy?`,
-      answer: `${airlineName} cancellation policy varies by fare type. Fully refundable tickets are eligible for a full refund. Non-refundable tickets may receive an eCredit for future travel, valid for one year. Cancellations made within 24 hours of booking are eligible for a full refund regardless of fare type. Refunds typically take 7-10 business days to process.`,
-    },
-    {
-      question: `Can I reschedule my ${airlineName} flight without penalty?`,
-      answer: `Yes, ${airlineName} offers rescheduling options with no change fees for tickets booked in Business or First Class. Main Cabin tickets may have a change fee but no fare difference if you reschedule to a lower-priced flight. Basic Economy tickets cannot be rescheduled without paying the fare difference. Elite status members may receive complimentary changes.`,
-    },
-    {
-      question: `How do I correct a name error on my ${airlineName} ticket?`,
-      answer: `Minor name corrections (typos up to 3 characters) can be corrected for free on ${airlineName} within 24 hours of booking. For major name changes, you may need to pay a fee or reissue the ticket. Contact ${airlineName} customer service at ${phoneNumber} for name correction assistance.`,
-    },
-    {
-      question: `What fees apply for changing my ${airlineName} flight?`,
-      answer: `Change fees on ${airlineName} vary based on your fare type, route, and how close to departure you make the change. Basic Economy tickets typically have the highest change fees, while Business and First Class tickets often have no change fees. Same-day changes usually have a lower fee than changes made days before departure.`,
-    },
-    {
-      question: `How do I get a refund from ${airlineName}?`,
-      answer: `To request a refund from ${airlineName}, visit the "Manage Booking" section on their website and select "Cancel Flight" or "Request Refund". You can also call ${airlineName} customer service at ${phoneNumber} to initiate the refund process. Refunds for eligible tickets are processed within 7-10 business days.`,
-    },
-    {
-      question: `Can I change my ${airlineName} flight online?`,
-      answer: `Yes, most ${airlineName} flights can be changed online through the "Manage Booking" portal on the airline's website. You'll need your confirmation number and last name. Online changes are available up to 1 hour before departure for most flights. Some complex bookings may require calling customer service.`,
-    },
-    {
-      question: `What happens if ${airlineName} cancels my flight?`,
-      answer: `If ${airlineName} cancels your flight, you are entitled to a full refund to your original form of payment. You can also choose to rebook on the next available flight at no additional cost. ${airlineName} will typically notify you of cancellations via email or text message. For immediate assistance, call ${phoneNumber}.`,
-    },
-  ];
+  // Get ONLY non-policy FAQs (general questions)
+  const generalFaqs = airline.faqs.filter((faq) => {
+    const question = faq.question.toLowerCase();
+    return (
+      !question.includes('policy') &&
+      !question.includes('change') &&
+      !question.includes('cancel') &&
+      !question.includes('reschedule') &&
+      !question.includes('refund') &&
+      !question.includes('fee') &&
+      !question.includes('same-day') &&
+      !question.includes('modification') &&
+      !question.includes('difference') &&
+      !question.includes('fare type') &&
+      !question.includes('upgrade') &&
+      !question.includes('name error') &&
+      !question.includes('correction')
+    );
+  });
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+
+  // If no general FAQs, don't render the section
+  if (generalFaqs.length === 0) {
+    return null;
+  }
 
   return (
     <section className="py-4 sm:py-6 bg-white border-t" style={{ borderColor: '#e2e8f0' }}>
@@ -88,7 +71,7 @@ export default function AirlineFAQ({ airlineName }: AirlineFAQProps) {
 
         {/* FAQ List - Full Width */}
         <div className="space-y-2">
-          {faqs.map((faq, index) => (
+          {generalFaqs.map((faq, index) => (
             <div
               key={index}
               className={`
