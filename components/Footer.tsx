@@ -21,16 +21,47 @@ export default function Footer() {
   const [showModal, setShowModal] = useState(false);
   const [selectedLink, setSelectedLink] = useState("");
 
+  // 1. Updated Quick Links to match TickettoEurope UI
   const quickLinks = [
-    { name: "About Us", href: "#" },
-    { name: "Flights", href: "#" },
-    { name: "Blog", href: "#" },
-    { name: "Contact", href: "#" },
+    { name: "Home", href: "/" },
+    { name: "About Us", href: "/about" },
+    { name: "Disclaimer", href: "/disclaimer" },
+    { name: "Contact Us", href: "#", isModal: true },
+    { name: "Site Map", href: "/sitemap" },
   ];
 
-  // Helper function to generate slug from airline name - with safety check
+  // 2. Added Legal Links to match TickettoEurope UI
+  const legalLinks = [
+    { name: "Terms & Condition", href: "/terms-of-service" },
+    { name: "Privacy Policy", href: "/privacy-policy" },
+    { name: "Price Match Promise", href: "/price-match-policy" },
+    { name: "Fulfillment Policy", href: "/fulfillment-policy" },
+    { name: "Fare Disclosure", href: "/fare-disclosure-policy" },
+    { name: "Advertiser Disclosure", href: "/advertiser-disclosure-policy" },
+    { name: "Cookies Policy", href: "/cookies" },
+    { name: "Cancellation and Refund", href: "/cancellation-refund-policy" },
+    { name: "Taxes and Fees", href: "/taxes-fees" },
+  ];
+
+  // Helper function to generate slug from airline name - with special case handling
   function getSlugFromName(name: string): string {
     if (!name || typeof name !== 'string') return "";
+    
+    // Special cases for airlines with specific slugs
+    const specialCases: Record<string, string> = {
+      'Cathay Pacific': 'cathay-pacific',
+      'Cathay Pacific Airways': 'cathay-pacific',
+      'Singapore Airlines': 'singapore-airlines',
+      'Korean Air': 'korean-air',
+      'Philippine Airlines': 'philippine-airlines',
+    };
+    
+    // Check if we have a special case
+    if (specialCases[name]) {
+      return specialCases[name];
+    }
+    
+    // Default slug generation
     return name
       .toLowerCase()
       .replace(/\s+/g, '-')
@@ -47,10 +78,12 @@ export default function Footer() {
       slug: getSlugFromName(airline.airline.name)
     }));
 
-  const handleLinkClick = (e: React.MouseEvent, linkName: string) => {
-    e.preventDefault();
-    setSelectedLink(linkName);
-    setShowModal(true);
+  const handleLinkClick = (e: React.MouseEvent, linkName: string, isModal?: boolean) => {
+    if (isModal) {
+      e.preventDefault();
+      setSelectedLink(linkName);
+      setShowModal(true);
+    }
   };
 
   const closeModal = () => {
@@ -63,8 +96,10 @@ export default function Footer() {
       <footer className="text-[#2a2420]/80" style={{ backgroundColor: '#faf7f2' }}>
         {/* Main Footer */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+          {/* REORDERED COLUMNS: Brand, Quick Links, Top Airlines, Legal */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
-            {/* Brand & About */}
+            
+            {/* 1. Brand & About */}
             <div>
               <div className="flex items-center gap-4 mb-4">
                 <div className="flex-shrink-0">
@@ -101,7 +136,7 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Quick Links */}
+            {/* 2. Quick Links */}
             <div>
               <h3 className="font-semibold text-lg mb-4 relative" style={{ color: '#3d3226' }}>
                 Quick Links
@@ -115,26 +150,60 @@ export default function Footer() {
               <ul className="space-y-2.5">
                 {quickLinks.map((link) => (
                   <li key={link.name}>
-                    <a
-                      href={link.href}
-                      onClick={(e) => handleLinkClick(e, link.name)}
-                      className="text-sm transition-colors duration-200 flex items-center gap-2 group cursor-pointer"
-                      style={{ color: '#2a242099' }}
-                    >
-                      <span 
-                        className="w-1 h-1 rounded-full transition-colors"
-                        style={{ 
-                          backgroundColor: '#5e503f66',
+                    {link.isModal ? (
+                      <a
+                        href={link.href}
+                        onClick={(e) => handleLinkClick(e, link.name, true)}
+                        className="text-sm transition-colors duration-200 flex items-center gap-2 group cursor-pointer"
+                        style={{ color: '#2a242099' }}
+                      >
+                        <span 
+                          className="w-1 h-1 rounded-full transition-colors"
+                          style={{ 
+                            backgroundColor: '#5e503f66',
+                          }}
+                        />
+                        {link.name}
+                      </a>
+                    ) : link.name === "Home" ? (
+                      <a
+                        href={link.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
                         }}
-                      />
-                      {link.name}
-                    </a>
+                        className="text-sm transition-colors duration-200 flex items-center gap-2 group cursor-pointer"
+                        style={{ color: '#2a242099' }}
+                      >
+                        <span 
+                          className="w-1 h-1 rounded-full transition-colors"
+                          style={{ 
+                            backgroundColor: '#5e503f66',
+                          }}
+                        />
+                        {link.name}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-sm transition-colors duration-200 flex items-center gap-2 group"
+                        style={{ color: '#2a242099' }}
+                      >
+                        <span 
+                          className="w-1 h-1 rounded-full transition-colors"
+                          style={{ 
+                            backgroundColor: '#5e503f66',
+                          }}
+                        />
+                        {link.name}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Top Airlines */}
+            {/* 3. Top Airlines (Moved to Middle) */}
             <div>
               <h3 className="font-semibold text-lg mb-4 relative" style={{ color: '#3d3226' }}>
                 Top Airlines
@@ -166,10 +235,10 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Contact Us */}
+            {/* 4. Legal Links (Moved to Far Right) */}
             <div>
               <h3 className="font-semibold text-lg mb-4 relative" style={{ color: '#3d3226' }}>
-                Contact Us
+                Legal
                 <span 
                   className="absolute -bottom-1 left-0 w-8 h-0.5 rounded-full"
                   style={{
@@ -177,23 +246,24 @@ export default function Footer() {
                   }}
                 />
               </h3>
-              <ul className="space-y-3.5">
-                <li className="flex items-start gap-3 text-sm transition-colors group" style={{ color: '#2a242099' }}>
-                  <Phone size={16} className="flex-shrink-0 mt-0.5 transition-transform" style={{ color: '#5e503f' }} />
-                  <span>{CONTACT.phone || "+1 (833) 839-7273"}</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm transition-colors group" style={{ color: '#2a242099' }}>
-                  <Mail size={16} className="flex-shrink-0 mt-0.5 transition-transform" style={{ color: '#5e503f' }} />
-                  <span>{COMPANY.email || "support@tickettooasia.com"}</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm transition-colors group" style={{ color: '#2a242099' }}>
-                  <MapPin size={16} className="flex-shrink-0 mt-0.5 transition-transform" style={{ color: '#5e503f' }} />
-                  <span>{COMPANY.address || "Singapore"}</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm transition-colors group" style={{ color: '#2a242099' }}>
-                  <Clock size={16} className="flex-shrink-0 mt-0.5 transition-transform" style={{ color: '#5e503f' }} />
-                  <span>{CONTACT.supportHours || "24/7 Support"}</span>
-                </li>
+              <ul className="space-y-2.5">
+                {legalLinks.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="text-sm transition-colors duration-200 flex items-center gap-2 group"
+                      style={{ color: '#2a242099' }}
+                    >
+                      <span 
+                        className="w-1 h-1 rounded-full transition-colors"
+                        style={{ 
+                          backgroundColor: '#5e503f66',
+                        }}
+                      />
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -242,17 +312,17 @@ export default function Footer() {
                 &copy; {COMPANY.year || new Date().getFullYear()} {COMPANY.name || BRAND.name}. All rights reserved.
               </p>
               <div className="flex items-center gap-4">
-                <a href="#" className="transition-colors" style={{ color: '#2a242040' }}>
+                <Link href="/privacy-policy" className="transition-colors" style={{ color: '#2a242040' }}>
                   Privacy Policy
-                </a>
+                </Link>
                 <span className="w-px h-3" style={{ backgroundColor: '#5e503f1A' }} />
-                <a href="#" className="transition-colors" style={{ color: '#2a242040' }}>
+                <Link href="/terms-of-service" className="transition-colors" style={{ color: '#2a242040' }}>
                   Terms of Service
-                </a>
+                </Link>
                 <span className="w-px h-3" style={{ backgroundColor: '#5e503f1A' }} />
-                <a href="#" className="transition-colors" style={{ color: '#2a242040' }}>
+                <Link href="/cookies" className="transition-colors" style={{ color: '#2a242040' }}>
                   Cookie Policy
-                </a>
+                </Link>
               </div>
             </div>
           </div>

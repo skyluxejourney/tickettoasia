@@ -15,7 +15,7 @@ export const singaporeAirlinesData = {
     reviews: 2134,
     highlights: ["First Class", "Business Class", "Premium Economy", "Singapore Airlines Suites", "KrisFlyer"],
     phoneNumber: "18557546902",
-    email: "support@singaporeair.com",
+    email: "Reservations@tickettooasia.com",
   },
   metadata: {
     title: "Singapore Airlines Flight Change, Cancellation & Upgrades",

@@ -309,7 +309,7 @@ export default function AirlinePolicy({ airline }: AirlinePolicyProps) {
               <div className="p-0.5 bg-black/10">
                 <div className="border border-black/15 overflow-hidden">
                   <Image
-                    src="/images/sidepannel.png"
+                    src="/images/sidepannelimage.png"
                     alt={`Review Us Now - ${BRAND.name}`}
                     width={400}
                     height={600}

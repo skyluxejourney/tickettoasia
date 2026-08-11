@@ -2,7 +2,7 @@
 export const COMPANY = {
   name: "Ticket to Asia",
   domain: "tickettoasia.com",
-  email: "bookings@tickettoasia.com",
+  email: "Reservations@tickettooasia.com",
   phone: "+1-8662286373",
   phoneRaw: "18662286373",
   address: "123 Travel Street, New York, USA",

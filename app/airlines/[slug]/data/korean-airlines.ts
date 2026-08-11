@@ -15,7 +15,7 @@ export const koreanAirData = {
     reviews: 1654,
     highlights: ["First Class", "Prestige Class", "Premium Economy", "Korean Air Suites", "SKYPASS"],
     phoneNumber: "18338397273",
-    email: "support@koreanair.com",
+    email: "Reservations@tickettooasia.com",
   },
   metadata: {
     title: "Korean Air Flight Change, Cancellation & Upgrades",

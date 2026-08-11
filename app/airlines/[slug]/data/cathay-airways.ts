@@ -15,7 +15,7 @@ export const cathayPacificData = {
     reviews: 1876,
     highlights: ["First Class", "Business Class", "Premium Economy", "Cathay Pacific Suites", "Marco Polo Club"],
     phoneNumber: "18882910137",
-    email: "support@cathaypacific.com",
+    email: "Reservations@tickettooasia.com",
   },
   metadata: {
     title: "Cathay Pacific Airways Flight Change, Cancellation & Upgrades",

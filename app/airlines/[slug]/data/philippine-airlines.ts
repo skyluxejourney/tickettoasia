@@ -15,7 +15,7 @@ export const philippineAirlinesData = {
     reviews: 987,
     highlights: ["Business Class", "Premium Economy", "Mabuhay Miles", "First Class"],
     phoneNumber: "18338397273",
-    email: "support@philippineairlines.com",
+    email: "Reservations@tickettooasia.com",
   },
   metadata: {
     title: "Philippine Airlines Flight Change, Cancellation & Upgrades",
