@@ -9,6 +9,7 @@ import {
   Clock,
   Award,
   Shield,
+  AlertCircle,
 } from "lucide-react";
 import ContactModal from "./ContactModal";
 import Link from "next/link";
@@ -269,7 +270,7 @@ export default function Footer() {
           </div>
 
           {/* Newsletter Section */}
-          <div className="mt-12 pt-8 border-t" style={{ borderColor: '#5e503f1A' }}>
+          <div className="mt-8 pt-6 border-t" style={{ borderColor: '#5e503f1A' }}>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
                 <h4 className="font-semibold text-base" style={{ color: '#3d3226' }}>
@@ -300,6 +301,24 @@ export default function Footer() {
                   Subscribe
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Disclaimer Section - Full Width */}
+        <div className="w-full" style={{ backgroundColor: '#2a242005', borderTop: '1px solid #5e503f1A', borderBottom: '1px solid #5e503f1A' }}>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#5e503f' }} />
+              <p className="text-xs leading-relaxed" style={{ color: '#2a242099' }}>
+                <span className="font-semibold" style={{ color: '#3d3226' }}>Disclaimer:</span>{" "}
+                This Disclaimer governs the use of the website www.Tickettooasia.com (the "Website"), 
+                operated by Noam Flyers Inc. ("Company," "we," "us," or "our"), a USA-registered 
+                travel company. Tickettooasia.com is an independent online travel agency and is 
+                not an airline. We are not affiliated with, owned by, or operated by any airline. 
+                Our role is to facilitate travel bookings and provide customers with access to 
+                available travel options from airlines and other travel service providers.
+              </p>
             </div>
           </div>
         </div>

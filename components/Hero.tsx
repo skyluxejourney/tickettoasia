@@ -33,7 +33,7 @@ export default function Hero() {
           {/* Main Heading - Two Lines Only */}
           <h1 className="max-w-4xl mx-auto mb-3 sm:mb-5">
             <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight">
-              Discover the World's
+              Find Your
             </span>
             <span className="relative inline-block">
               <span 
@@ -44,7 +44,7 @@ export default function Hero() {
                   WebkitTextFillColor: 'transparent'
                 }}
               >
-                Best Travel Experiences
+                Perfect Flight
               </span>
               <span 
                 className="absolute -bottom-0.5 left-0 w-full h-1 rounded-full blur-sm"
@@ -57,7 +57,7 @@ export default function Hero() {
 
           {/* Subtitle - Centered */}
           <p className="text-white/70 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-6 sm:mb-8 font-light tracking-wide leading-relaxed">
-            Curated luxury journeys to the most breathtaking destinations.
+           Search great deals on flights and more with one easy search
             <br className="hidden sm:block" />
             Let us craft your perfect escape.
           </p>
