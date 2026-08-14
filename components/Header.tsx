@@ -14,7 +14,7 @@ import { COMPANY, CONTACT, BRAND } from "@/app/constants";
 const navItems = [
   { name: "FLIGHTS", isActive: true },
   { name: "LIVE HELP?" },
-  { name: "BLOG" },
+  { name: "CONTACT US", isContact: true, path: "/contact" },
   { name: "CUSTOMER SUPPORT" },
 ];
 
@@ -37,7 +37,12 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = (item: { name: string; isActive?: boolean }) => {
+  const handleNavClick = (item: { name: string; isActive?: boolean; isContact?: boolean; path?: string }) => {
+    // If it's the Contact Us link, let it navigate normally
+    if (item.isContact) {
+      return;
+    }
+    
     if (item.isActive) {
       return;
     }
@@ -129,8 +134,9 @@ export default function Header() {
             {/* DESKTOP NAV */}
             <nav className="hidden lg:flex items-center justify-center flex-1 gap-2 px-4">
               {navItems.map((item, index) => (
-                <button
+                <Link
                   key={item.name}
+                  href={item.path || "#"}
                   onClick={() => handleNavClick(item)}
                   className={`
                     relative
@@ -142,11 +148,12 @@ export default function Header() {
                     text-xs
                     tracking-wider
                     ${item.isActive
-                      ? "text-[#5e503f]"
+                      ? "text-[#5e503f] cursor-default"
                       : "text-[#2a2420]/70 hover:text-[#5e503f]"
                     }
                     hover:scale-105 active:scale-95
                     ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}
+                    ${item.isContact ? "cursor-pointer" : "cursor-pointer"}
                   `}
                   style={{ transitionDelay: `${index * 50}ms` }}
                 >
@@ -159,7 +166,7 @@ export default function Header() {
                       }}
                     />
                   )}
-                  {!item.isActive && (
+                  {!item.isActive && !item.isContact && (
                     <span 
                       className="absolute inset-x-0 -bottom-0.5 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full"
                       style={{
@@ -167,7 +174,15 @@ export default function Header() {
                       }}
                     />
                   )}
-                </button>
+                  {item.isContact && (
+                    <span 
+                      className="absolute inset-x-0 -bottom-0.5 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full"
+                      style={{
+                        background: `linear-gradient(to right, #5e503f, #b8956e)`
+                      }}
+                    />
+                  )}
+                </Link>
               ))}
             </nav>
 
@@ -254,9 +269,14 @@ export default function Header() {
             >
               <div className="pt-2 border-t" style={{ borderColor: '#eae0d5' }}>
                 {navItems.map((item, index) => (
-                  <button
+                  <Link
                     key={item.name}
+                    href={item.path || "#"}
                     onClick={() => {
+                      if (item.isContact) {
+                        setOpen(false);
+                        return;
+                      }
                       handleNavClick(item);
                     }}
                     className={`
@@ -270,7 +290,7 @@ export default function Header() {
                       font-medium
                       tracking-wider
                       ${item.isActive
-                        ? "text-[#5e503f] bg-[#eae0d5]"
+                        ? "text-[#5e503f] bg-[#eae0d5] cursor-default"
                         : "text-[#2a2420]/70 hover:text-[#5e503f] hover:bg-[#eae0d5]"
                       }
                       hover:scale-[1.02] active:scale-95
@@ -285,7 +305,7 @@ export default function Header() {
                         style={{ backgroundColor: '#5e503f' }}
                       />
                     )}
-                  </button>
+                  </Link>
                 ))}
                 
                 <div className="mt-3 pt-3 border-t" style={{ borderColor: '#eae0d5' }}>

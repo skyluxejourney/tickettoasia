@@ -1,11 +1,19 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SearchEngine from "./SearchEngine";
 import Image from "next/image";
 import { Phone, Headphones } from "lucide-react";
-import { CONTACT } from "@/app/constants";
+import { CONTACT } from "../app/constants"; 
 
 export default function Hero() {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setIsVisible(true), 100);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-20 sm:pt-24">
       {/* Background Image with Clean Dark Overlay */}
@@ -25,7 +33,7 @@ export default function Hero() {
       </div>
 
       {/* Premium Texture Overlay */}
-      <div className="absolute inset-0 z-0 opacity-[0.02] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48ZyBmaWxsPSIjZmZmIj48cGF0aCBkPSJNMzYgMzRjMCAxLjEgLjkgMiAyIDJzMi0uOSAyLTItLjktMi0yLTIgLTIgLjktMiAyei0xMiA0YzAgMS4xLjkgMiAyIDJzMi0uOSAyLTItLjktMi0yLTIgLTIgLjktMiAyeiIvPjwvZz48L3N2Zz4=')]" />
+      <div className="absolute inset-0 z-0 opacity-[0.02] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48ZyBmaWxsPSIjZmZmIj48cGF0aCBkPSJNMzYgMzRjMCAxLjEuOSAyMiAyIDJzMi0uOSAyLTItLjktMi0yLTIgLTIgLjkgMiAyei0xMiA0YzAgMS4xLjkgMiAyIDJzMi0uOSAyLTItLjktMi0yLTIgLTIgLjkgMiAyeiIvPjwvZz48L3N2Zz4=')]" />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
@@ -57,7 +65,7 @@ export default function Hero() {
 
           {/* Subtitle - Centered */}
           <p className="text-white/70 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-6 sm:mb-8 font-light tracking-wide leading-relaxed">
-           Search great deals on flights and more with one easy search
+            Search great deals on flights and more with one easy search
             <br className="hidden sm:block" />
             Let us craft your perfect escape.
           </p>
@@ -69,7 +77,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll Indicator - Positioned at bottom center */}
+      {/* Scroll Indicator */}
       <div 
         className="absolute bottom-2 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 transition-colors cursor-pointer z-10"
         style={{ color: '#b8956e80' }}
@@ -82,58 +90,47 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Professional Floating Call Widget - Warm Theme (Adapted from AirlineHero) */}
-      <div className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 group flex items-center gap-3">
-
-        {/* Chat Card - appears on hover with optimized animation */}
+      {/* Professional Floating Call Widget */}
+      <div className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center gap-3">
+        {/* Chat Card - Only appears when hovering the button directly */}
         <div
-          className="
+          className={`
             hidden sm:block
             w-[260px]
-            rounded-2xl
+
             border border-gray-200/80
             bg-white/95
             backdrop-blur-xl
             p-4
             shadow-[0_20px_60px_rgba(94,80,63,0.18)]
-            opacity-0
-            translate-x-4
-            scale-95
-            pointer-events-none
             transition-all duration-400 
             ease-[cubic-bezier(0.34,1.56,0.64,1)]
-            group-hover:opacity-100
-            group-hover:translate-x-0
-            group-hover:scale-100
-            group-hover:pointer-events-auto
             will-change-transform
-          "
+            ${isHovered 
+              ? 'opacity-100 translate-x-0 scale-100 pointer-events-auto' 
+              : 'opacity-0 translate-x-4 scale-95 pointer-events-none'
+            }
+          `}
         >
           <div className="flex items-start gap-3">
-
-            {/* Support Icon with subtle animation */}
-            <div className="relative mt-0.5 flex h-10 w-10 items-center justify-center rounded-full bg-[#f5ede4] group-hover:scale-105 transition-transform duration-300">
+            <div className="relative mt-0.5 flex h-10 w-10 items-center justify-center rounded-full bg-[#f5ede4] transition-transform duration-300 group-hover:scale-105">
               <span className="absolute inset-0 rounded-full bg-[#b8956e]/20 animate-ping"></span>
-              <Headphones className="relative z-10 h-5 w-5 text-[#5e503f] group-hover:rotate-12 transition-transform duration-300" />
+              <Headphones className="relative z-10 h-5 w-5 text-[#5e503f] transition-transform duration-300 group-hover:rotate-12" />
             </div>
 
-            {/* Text */}
             <div className="min-w-0 flex-1">
               <div className="mb-1 flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 animate-ping"></span>
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
                 </span>
-
                 <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-500">
                   24/7 Call Assistance
                 </p>
               </div>
-
               <p className="text-base font-bold text-gray-900 group-hover:text-[#5e503f] transition-colors duration-300">
                 {CONTACT.phone}
               </p>
-
               <p className="mt-1 text-xs leading-relaxed text-gray-500">
                 Flight booking, changes and cancellations.
               </p>
@@ -141,7 +138,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Circle Call Button with visible wave rings - Warm Theme */}
+        {/* Circle Call Button */}
         <a
           href={`tel:${CONTACT.phoneRaw}`}
           aria-label="Call support"
@@ -161,14 +158,15 @@ export default function Hero() {
           style={{
             background: `linear-gradient(to right, #5e503f, #b8956e)`
           }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
-
-          {/* Wave Rings - with warm colored borders for visibility */}
+          {/* Wave Rings */}
           <span className="absolute inset-0 rounded-full border-2 border-[#b8956e]/60 animate-[ping_2s_ease-in-out_infinite]"></span>
           <span className="absolute inset-[-4px] rounded-full border-2 border-[#b8956e]/40 animate-[pulse_2.5s_ease-in-out_infinite_0.5s]"></span>
           <span className="absolute inset-[-8px] rounded-full border-2 border-[#b8956e]/25 animate-[pulse_3s_ease-in-out_infinite_1s]"></span>
           
-          {/* Inner Glass Circle with improved hover effect */}
+          {/* Inner Glass Circle */}
           <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/12 backdrop-blur-md border border-white/20 group-hover:bg-white/20 transition-all duration-300">
             <Phone className="h-6 w-6 group-hover:scale-110 transition-transform duration-300" />
           </span>

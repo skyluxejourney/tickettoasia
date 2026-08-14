@@ -1,39 +1,28 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Inter, Montserrat, Poppins, Plus_Jakarta_Sans } from 'next/font/google';
+import { Inter, Plus_Jakarta_Sans, DM_Sans, Outfit } from 'next/font/google';
+import StatCounter from '@/components/StatCounter';
 
-// Primary font - Clean, modern sans-serif (similar to IndiGo Airlines)
-// IndiGo uses a clean, modern sans-serif font similar to Montserrat or Poppins
-const headingFont = Montserrat({
+const headingFont = Outfit({
   variable: '--font-heading',
   subsets: ['latin'],
   display: 'swap',
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  weight: ['300', '400', '500', '600', '700'],
 });
 
-// Secondary font - Clean body text (similar to IndiGo's body font)
-const bodyFont = Inter({
+const bodyFont = DM_Sans({
   variable: '--font-body',
   subsets: ['latin'],
   display: 'swap',
   weight: ['300', '400', '500', '600', '700'],
 });
 
-// Alternative: If you prefer Poppins (very clean and modern)
-// const headingFont = Poppins({
-//   variable: '--font-heading',
-//   subsets: ['latin'],
-//   display: 'swap',
-//   weight: ['300', '400', '500', '600', '700', '800', '900'],
-// });
-
 export const metadata: Metadata = {
-  title: 'TicketToAsia | Luxury Travel & Holiday Packages',
+  title: 'TicketToEurope | Luxury Travel & Holiday Packages',
   description:
-    'Book luxury holiday packages, flights, hotels and customized trips with TicketToAsia.',
+    'Book luxury holiday packages, flights, hotels and customized trips with Skyluxe Journey.',
   keywords: [
     'Skyluxe Journey',
-    'ticket to asia',
     'travel agency',
     'holiday packages',
     'flights',
@@ -58,6 +47,7 @@ export default function RootLayout({
       className={`${headingFont.variable} ${bodyFont.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-white text-gray-900 flex flex-col">
+        <StatCounter />
         {children}
       </body>
     </html>

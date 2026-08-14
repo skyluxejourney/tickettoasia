@@ -22,16 +22,16 @@ export default function Footer() {
   const [showModal, setShowModal] = useState(false);
   const [selectedLink, setSelectedLink] = useState("");
 
-  // 1. Updated Quick Links to match TickettoEurope UI
+  // Updated Quick Links - Contact Us now links to /contact
   const quickLinks = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
     { name: "Disclaimer", href: "/disclaimer" },
-    { name: "Contact Us", href: "#", isModal: true },
+    { name: "Contact Us", href: "/contact" }, // Changed to /contact
     { name: "Site Map", href: "/sitemap" },
   ];
 
-  // 2. Added Legal Links to match TickettoEurope UI
+  // Legal Links
   const legalLinks = [
     { name: "Terms & Condition", href: "/terms-of-service" },
     { name: "Privacy Policy", href: "/privacy-policy" },
@@ -44,11 +44,10 @@ export default function Footer() {
     { name: "Taxes and Fees", href: "/taxes-fees" },
   ];
 
-  // Helper function to generate slug from airline name - with special case handling
+  // Helper function to generate slug from airline name
   function getSlugFromName(name: string): string {
     if (!name || typeof name !== 'string') return "";
     
-    // Special cases for airlines with specific slugs
     const specialCases: Record<string, string> = {
       'Cathay Pacific': 'cathay-pacific',
       'Cathay Pacific Airways': 'cathay-pacific',
@@ -57,35 +56,25 @@ export default function Footer() {
       'Philippine Airlines': 'philippine-airlines',
     };
     
-    // Check if we have a special case
     if (specialCases[name]) {
       return specialCases[name];
     }
     
-    // Default slug generation
     return name
       .toLowerCase()
       .replace(/\s+/g, '-')
       .replace(/[^a-z0-9-]/g, '');
   }
 
-  // Get top airlines from the airlinesDataMap - limit to 7 for display
+  // Get top airlines
   const allAirlines = Object.values(airlinesDataMap);
   const topAirlines = allAirlines
-    .filter((airline: AirlineData) => airline.airline?.name) // Filter out any with undefined name
+    .filter((airline: AirlineData) => airline.airline?.name)
     .slice(0, 7)
     .map((airline: AirlineData) => ({
       name: airline.airline.name,
       slug: getSlugFromName(airline.airline.name)
     }));
-
-  const handleLinkClick = (e: React.MouseEvent, linkName: string, isModal?: boolean) => {
-    if (isModal) {
-      e.preventDefault();
-      setSelectedLink(linkName);
-      setShowModal(true);
-    }
-  };
 
   const closeModal = () => {
     setShowModal(false);
@@ -97,7 +86,6 @@ export default function Footer() {
       <footer className="text-[#2a2420]/80" style={{ backgroundColor: '#faf7f2' }}>
         {/* Main Footer */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          {/* REORDERED COLUMNS: Brand, Quick Links, Top Airlines, Legal */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
             
             {/* 1. Brand & About */}
@@ -151,22 +139,7 @@ export default function Footer() {
               <ul className="space-y-2.5">
                 {quickLinks.map((link) => (
                   <li key={link.name}>
-                    {link.isModal ? (
-                      <a
-                        href={link.href}
-                        onClick={(e) => handleLinkClick(e, link.name, true)}
-                        className="text-sm transition-colors duration-200 flex items-center gap-2 group cursor-pointer"
-                        style={{ color: '#2a242099' }}
-                      >
-                        <span 
-                          className="w-1 h-1 rounded-full transition-colors"
-                          style={{ 
-                            backgroundColor: '#5e503f66',
-                          }}
-                        />
-                        {link.name}
-                      </a>
-                    ) : link.name === "Home" ? (
+                    {link.name === "Home" ? (
                       <a
                         href={link.href}
                         onClick={(e) => {
@@ -204,7 +177,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* 3. Top Airlines (Moved to Middle) */}
+            {/* 3. Top Airlines */}
             <div>
               <h3 className="font-semibold text-lg mb-4 relative" style={{ color: '#3d3226' }}>
                 Top Airlines
@@ -236,7 +209,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* 4. Legal Links (Moved to Far Right) */}
+            {/* 4. Legal Links */}
             <div>
               <h3 className="font-semibold text-lg mb-4 relative" style={{ color: '#3d3226' }}>
                 Legal
@@ -305,7 +278,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Disclaimer Section - Full Width */}
+        {/* Disclaimer Section */}
         <div className="w-full" style={{ backgroundColor: '#2a242005', borderTop: '1px solid #5e503f1A', borderBottom: '1px solid #5e503f1A' }}>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div className="flex items-start gap-3">
@@ -348,7 +321,7 @@ export default function Footer() {
         </div>
       </footer>
 
-      {/* Contact Modal */}
+      {/* Contact Modal - Still rendered but not used for Contact Us */}
       <ContactModal 
         isOpen={showModal}
         onClose={closeModal}

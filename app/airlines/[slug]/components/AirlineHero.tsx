@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import SearchEngine from "@/components/SearchEngine";
 import { Phone, Headphones } from "lucide-react";
@@ -11,6 +12,8 @@ interface AirlineHeroProps {
 }
 
 export default function AirlineHero({ airline }: AirlineHeroProps) {
+  const [isHovered, setIsHovered] = useState(false);
+  
   // Extract airline name from the title
   const airlineName = airline.airline.name;
   
@@ -98,12 +101,11 @@ export default function AirlineHero({ airline }: AirlineHeroProps) {
         }}
       />
 
-      {/* Professional Floating Call Widget - Warm Theme */}
-      <div className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 group flex items-center gap-3">
-
-        {/* Chat Card - appears on hover with optimized animation */}
+      {/* Professional Floating Call Widget - Fixed hover behavior */}
+      <div className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center gap-3">
+        {/* Chat Card - Only appears when hovering the button directly */}
         <div
-          className="
+          className={`
             hidden sm:block
             w-[260px]
             rounded-2xl
@@ -112,25 +114,20 @@ export default function AirlineHero({ airline }: AirlineHeroProps) {
             backdrop-blur-xl
             p-4
             shadow-[0_20px_60px_rgba(94,80,63,0.18)]
-            opacity-0
-            translate-x-4
-            scale-95
-            pointer-events-none
             transition-all duration-400 
             ease-[cubic-bezier(0.34,1.56,0.64,1)]
-            group-hover:opacity-100
-            group-hover:translate-x-0
-            group-hover:scale-100
-            group-hover:pointer-events-auto
             will-change-transform
-          "
+            ${isHovered 
+              ? 'opacity-100 translate-x-0 scale-100 pointer-events-auto' 
+              : 'opacity-0 translate-x-4 scale-95 pointer-events-none'
+            }
+          `}
         >
           <div className="flex items-start gap-3">
-
             {/* Support Icon with subtle animation */}
-            <div className="relative mt-0.5 flex h-10 w-10 items-center justify-center rounded-full bg-[#f5ede4] group-hover:scale-105 transition-transform duration-300">
+            <div className="relative mt-0.5 flex h-10 w-10 items-center justify-center rounded-full bg-[#f5ede4] transition-transform duration-300 group-hover:scale-105">
               <span className="absolute inset-0 rounded-full bg-[#b8956e]/20 animate-ping"></span>
-              <Headphones className="relative z-10 h-5 w-5 text-[#5e503f] group-hover:rotate-12 transition-transform duration-300" />
+              <Headphones className="relative z-10 h-5 w-5 text-[#5e503f] transition-transform duration-300 group-hover:rotate-12" />
             </div>
 
             {/* Text */}
@@ -140,16 +137,13 @@ export default function AirlineHero({ airline }: AirlineHeroProps) {
                   <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 animate-ping"></span>
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
                 </span>
-
                 <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-500">
                   24/7 Call Assistance
                 </p>
               </div>
-
-              <p className="text-base font-bold text-gray-900 group-hover:text-[#5e503f] transition-colors duration-300">
+              <p className="text-base font-bold text-gray-900 transition-colors duration-300">
                 {airline.hero.ctaPhone}
               </p>
-
               <p className="mt-1 text-xs leading-relaxed text-gray-500">
                 Flight booking, changes and cancellations.
               </p>
@@ -177,8 +171,9 @@ export default function AirlineHero({ airline }: AirlineHeroProps) {
           style={{
             background: `linear-gradient(to right, #5e503f, #b8956e)`
           }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
-
           {/* Wave Rings - with warm colored borders for visibility */}
           <span className="absolute inset-0 rounded-full border-2 border-[#b8956e]/60 animate-[ping_2s_ease-in-out_infinite]"></span>
           <span className="absolute inset-[-4px] rounded-full border-2 border-[#b8956e]/40 animate-[pulse_2.5s_ease-in-out_infinite_0.5s]"></span>

@@ -14,6 +14,7 @@ import {
   Minus,
   Plus,
   Loader2,
+  AlertCircle,
 } from "lucide-react";
 
 // Sample location data with airport codes
@@ -55,6 +56,7 @@ export default function SearchEngine() {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [selectedDepartDate, setSelectedDepartDate] = useState<Date | null>(null);
   const [selectedReturnDate, setSelectedReturnDate] = useState<Date | null>(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const leavingRef = useRef<HTMLDivElement>(null);
   const departingRef = useRef<HTMLDivElement>(null);
@@ -93,18 +95,23 @@ export default function SearchEngine() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Auto-hide error message after 4 seconds
+  useEffect(() => {
+    if (errorMessage) {
+      const timer = setTimeout(() => {
+        setErrorMessage("");
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [errorMessage]);
+
   const handleSearch = async () => {
+    // Show "not in service" message
+    setErrorMessage("Flight search is currently not in service. Please try again later.");
+    
+    // Still show loading state briefly for UX
     setIsLoading(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    console.log({
-      tripType,
-      leavingFrom,
-      departingTo,
-      departDate,
-      returnDate,
-      passengers: passengerCount,
-    });
+    await new Promise(resolve => setTimeout(resolve, 1500));
     setIsLoading(false);
   };
 
@@ -241,6 +248,22 @@ export default function SearchEngine() {
 
   return (
     <div className="bg-white shadow-2xl max-w-6xl mx-auto p-4 relative z-[100] border" style={{ borderColor: '#e2e8f0' }}>
+      {/* Error Message with Red Icon */}
+      {errorMessage && (
+        <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm flex items-center justify-between animate-in slide-in-from-top-1 duration-200">
+          <div className="flex items-center gap-2">
+            <AlertCircle size={18} className="text-red-600 flex-shrink-0" />
+            <span>{errorMessage}</span>
+          </div>
+          <button
+            onClick={() => setErrorMessage("")}
+            className="text-red-500 hover:text-red-700 transition-colors"
+          >
+            <X size={16} />
+          </button>
+        </div>
+      )}
+
       {/* Trip Type Toggle */}
       <div className="flex items-center gap-1 mb-4">
         <button

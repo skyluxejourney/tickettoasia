@@ -5,7 +5,7 @@ export const COMPANY = {
   email: "Reservations@tickettooasia.com",
   phone: "+1-8662286373",
   phoneRaw: "18662286373",
-  address: "123 Travel Street, New York, USA",
+  address: "Basement Plot Number 35 Sector 11 Dwarka New Delhi 110075",
   year: new Date().getFullYear(),
 };
 
