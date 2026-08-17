@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Phone,
   Mail,
@@ -21,13 +21,37 @@ import type { AirlineData } from "@/app/airlines/[slug]/airlines-data";
 export default function Footer() {
   const [showModal, setShowModal] = useState(false);
   const [selectedLink, setSelectedLink] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
+  const footerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (footerRef.current) {
+      observer.observe(footerRef.current);
+    }
+
+    return () => {
+      if (footerRef.current) {
+        observer.unobserve(footerRef.current);
+      }
+    };
+  }, []);
 
   // Updated Quick Links - Contact Us now links to /contact
   const quickLinks = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
     { name: "Disclaimer", href: "/disclaimer" },
-    { name: "Contact Us", href: "/contact" }, // Changed to /contact
+    { name: "Contact Us", href: "/contact" },
     { name: "Site Map", href: "/sitemap" },
   ];
 
@@ -83,15 +107,24 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="text-[#2a2420]/80" style={{ backgroundColor: '#faf7f2' }}>
+      <footer 
+        ref={footerRef}
+        className="text-[#2a2420]/80 overflow-hidden" 
+        style={{ backgroundColor: '#faf7f2' }}
+      >
         {/* Main Footer */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
             
             {/* 1. Brand & About */}
-            <div>
+            <div 
+              className={`transition-all duration-700 ease-out ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+              }`}
+              style={{ transitionDelay: '100ms' }}
+            >
               <div className="flex items-center gap-4 mb-4">
-                <div className="flex-shrink-0">
+                <div className="flex-shrink-0 transition-transform duration-300 hover:scale-110">
                   <Image
                     src="/logo/ticketlogo.png"
                     alt={BRAND.name}
@@ -101,7 +134,7 @@ export default function Footer() {
                   />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold tracking-wide font-heading italic" style={{ color: '#3d3226' }}>
+                  <h2 className="text-xl font-bold tracking-wide font-heading italic transition-colors duration-300 hover:text-[#5e503f]" style={{ color: '#3d3226' }}>
                     {BRAND.name}
                   </h2>
                   <p className="text-xs font-medium tracking-wider uppercase" style={{ color: '#5e503f' }}>
@@ -114,11 +147,11 @@ export default function Footer() {
                 you discover the world with ease and comfort.
               </p>
               <div className="flex items-center gap-3 text-sm" style={{ color: '#2a242099' }}>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 transition-all duration-300 hover:scale-105 hover:text-[#5e503f]">
                   <Award size={14} style={{ color: '#5e503f' }} />
                   <span>5 Years of Trust</span>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 transition-all duration-300 hover:scale-105 hover:text-[#5e503f]">
                   <Shield size={14} style={{ color: '#5e503f' }} />
                   <span>Secure Booking</span>
                 </div>
@@ -126,7 +159,12 @@ export default function Footer() {
             </div>
 
             {/* 2. Quick Links */}
-            <div>
+            <div 
+              className={`transition-all duration-700 ease-out ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+              }`}
+              style={{ transitionDelay: '200ms' }}
+            >
               <h3 className="font-semibold text-lg mb-4 relative" style={{ color: '#3d3226' }}>
                 Quick Links
                 <span 
@@ -137,8 +175,14 @@ export default function Footer() {
                 />
               </h3>
               <ul className="space-y-2.5">
-                {quickLinks.map((link) => (
-                  <li key={link.name}>
+                {quickLinks.map((link, index) => (
+                  <li 
+                    key={link.name}
+                    className={`transition-all duration-500 ease-out ${
+                      isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+                    }`}
+                    style={{ transitionDelay: `${300 + index * 50}ms` }}
+                  >
                     {link.name === "Home" ? (
                       <a
                         href={link.href}
@@ -146,7 +190,7 @@ export default function Footer() {
                           e.preventDefault();
                           window.scrollTo({ top: 0, behavior: 'smooth' });
                         }}
-                        className="text-sm transition-colors duration-200 flex items-center gap-2 group cursor-pointer"
+                        className="text-sm transition-colors duration-200 flex items-center gap-2 group cursor-pointer hover:translate-x-1"
                         style={{ color: '#2a242099' }}
                       >
                         <span 
@@ -155,12 +199,14 @@ export default function Footer() {
                             backgroundColor: '#5e503f66',
                           }}
                         />
-                        {link.name}
+                        <span className="group-hover:text-[#5e503f] transition-colors duration-300">
+                          {link.name}
+                        </span>
                       </a>
                     ) : (
                       <Link
                         href={link.href}
-                        className="text-sm transition-colors duration-200 flex items-center gap-2 group"
+                        className="text-sm transition-colors duration-200 flex items-center gap-2 group hover:translate-x-1"
                         style={{ color: '#2a242099' }}
                       >
                         <span 
@@ -169,7 +215,9 @@ export default function Footer() {
                             backgroundColor: '#5e503f66',
                           }}
                         />
-                        {link.name}
+                        <span className="group-hover:text-[#5e503f] transition-colors duration-300">
+                          {link.name}
+                        </span>
                       </Link>
                     )}
                   </li>
@@ -178,7 +226,12 @@ export default function Footer() {
             </div>
 
             {/* 3. Top Airlines */}
-            <div>
+            <div 
+              className={`transition-all duration-700 ease-out ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+              }`}
+              style={{ transitionDelay: '300ms' }}
+            >
               <h3 className="font-semibold text-lg mb-4 relative" style={{ color: '#3d3226' }}>
                 Top Airlines
                 <span 
@@ -189,11 +242,17 @@ export default function Footer() {
                 />
               </h3>
               <ul className="space-y-2.5">
-                {topAirlines.map((airline) => (
-                  <li key={airline.name}>
+                {topAirlines.map((airline, index) => (
+                  <li 
+                    key={airline.name}
+                    className={`transition-all duration-500 ease-out ${
+                      isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+                    }`}
+                    style={{ transitionDelay: `${400 + index * 50}ms` }}
+                  >
                     <Link
                       href={`/airlines/${airline.slug}`}
-                      className="text-sm transition-colors duration-200 flex items-center gap-2 group"
+                      className="text-sm transition-colors duration-200 flex items-center gap-2 group hover:translate-x-1"
                       style={{ color: '#2a242099' }}
                     >
                       <span 
@@ -202,7 +261,9 @@ export default function Footer() {
                           backgroundColor: '#5e503f66',
                         }}
                       />
-                      {airline.name}
+                      <span className="group-hover:text-[#5e503f] transition-colors duration-300">
+                        {airline.name}
+                      </span>
                     </Link>
                   </li>
                 ))}
@@ -210,7 +271,12 @@ export default function Footer() {
             </div>
 
             {/* 4. Legal Links */}
-            <div>
+            <div 
+              className={`transition-all duration-700 ease-out ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+              }`}
+              style={{ transitionDelay: '400ms' }}
+            >
               <h3 className="font-semibold text-lg mb-4 relative" style={{ color: '#3d3226' }}>
                 Legal
                 <span 
@@ -221,11 +287,17 @@ export default function Footer() {
                 />
               </h3>
               <ul className="space-y-2.5">
-                {legalLinks.map((link) => (
-                  <li key={link.name}>
+                {legalLinks.map((link, index) => (
+                  <li 
+                    key={link.name}
+                    className={`transition-all duration-500 ease-out ${
+                      isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+                    }`}
+                    style={{ transitionDelay: `${500 + index * 30}ms` }}
+                  >
                     <Link
                       href={link.href}
-                      className="text-sm transition-colors duration-200 flex items-center gap-2 group"
+                      className="text-sm transition-colors duration-200 flex items-center gap-2 group hover:translate-x-1"
                       style={{ color: '#2a242099' }}
                     >
                       <span 
@@ -234,7 +306,9 @@ export default function Footer() {
                           backgroundColor: '#5e503f66',
                         }}
                       />
-                      {link.name}
+                      <span className="group-hover:text-[#5e503f] transition-colors duration-300">
+                        {link.name}
+                      </span>
                     </Link>
                   </li>
                 ))}
@@ -243,7 +317,12 @@ export default function Footer() {
           </div>
 
           {/* Newsletter Section */}
-          <div className="mt-8 pt-6 border-t" style={{ borderColor: '#5e503f1A' }}>
+          <div 
+            className={`mt-8 pt-6 border-t transition-all duration-700 ease-out ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+            }`}
+            style={{ borderColor: '#5e503f1A', transitionDelay: '500ms' }}
+          >
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
                 <h4 className="font-semibold text-base" style={{ color: '#3d3226' }}>
@@ -257,20 +336,20 @@ export default function Footer() {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 sm:w-64 px-4 py-2.5 bg-white/80 border rounded-l-full focus:outline-none transition-colors text-sm"
+                  className="flex-1 sm:w-64 px-4 py-2.5 bg-white/80 border rounded-l-full focus:outline-none transition-colors text-sm focus:border-[#5e503f] focus:ring-2 focus:ring-[#5e503f]/20"
                   style={{
                     borderColor: '#5e503f33',
                     color: '#2a2420',
                   }}
                 />
                 <button 
-                  className="px-5 py-2.5 text-white rounded-r-full font-semibold transition-all duration-300 flex items-center gap-2 text-sm whitespace-nowrap shadow-lg"
+                  className="px-5 py-2.5 text-white rounded-r-full font-semibold transition-all duration-300 flex items-center gap-2 text-sm whitespace-nowrap shadow-lg hover:scale-105 hover:shadow-xl active:scale-95 group"
                   style={{
                     background: `linear-gradient(to right, #5e503f, #b8956e)`,
                     boxShadow: `0 10px 15px -3px #5e503f33`
                   }}
                 >
-                  <Send size={14} />
+                  <Send size={14} className="group-hover:rotate-12 transition-transform duration-300" />
                   Subscribe
                 </button>
               </div>
@@ -279,7 +358,17 @@ export default function Footer() {
         </div>
 
         {/* Disclaimer Section */}
-        <div className="w-full" style={{ backgroundColor: '#2a242005', borderTop: '1px solid #5e503f1A', borderBottom: '1px solid #5e503f1A' }}>
+        <div 
+          className={`w-full transition-all duration-700 ease-out ${
+            isVisible ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ 
+            backgroundColor: '#2a242005', 
+            borderTop: '1px solid #5e503f1A', 
+            borderBottom: '1px solid #5e503f1A',
+            transitionDelay: '600ms'
+          }}
+        >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div className="flex items-start gap-3">
               <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#5e503f' }} />
@@ -297,22 +386,27 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t" style={{ borderColor: '#5e503f1A', backgroundColor: '#faf7f2CC' }}>
+        <div 
+          className={`border-t transition-all duration-700 ease-out ${
+            isVisible ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ borderColor: '#5e503f1A', backgroundColor: '#faf7f2CC', transitionDelay: '700ms' }}
+        >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs" style={{ color: '#2a242040' }}>
-              <p>
+              <p className="transition-colors duration-300 hover:text-[#5e503f]">
                 &copy; {COMPANY.year || new Date().getFullYear()} {COMPANY.name || BRAND.name}. All rights reserved.
               </p>
               <div className="flex items-center gap-4">
-                <Link href="/privacy-policy" className="transition-colors" style={{ color: '#2a242040' }}>
+                <Link href="/privacy-policy" className="transition-colors hover:text-[#5e503f] hover:scale-105 duration-300" style={{ color: '#2a242040' }}>
                   Privacy Policy
                 </Link>
                 <span className="w-px h-3" style={{ backgroundColor: '#5e503f1A' }} />
-                <Link href="/terms-of-service" className="transition-colors" style={{ color: '#2a242040' }}>
+                <Link href="/terms-of-service" className="transition-colors hover:text-[#5e503f] hover:scale-105 duration-300" style={{ color: '#2a242040' }}>
                   Terms of Service
                 </Link>
                 <span className="w-px h-3" style={{ backgroundColor: '#5e503f1A' }} />
-                <Link href="/cookies" className="transition-colors" style={{ color: '#2a242040' }}>
+                <Link href="/cookies" className="transition-colors hover:text-[#5e503f] hover:scale-105 duration-300" style={{ color: '#2a242040' }}>
                   Cookie Policy
                 </Link>
               </div>

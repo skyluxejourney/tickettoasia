@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import SearchEngine from "@/components/SearchEngine";
 import { Phone, Headphones } from "lucide-react";
@@ -13,6 +13,7 @@ interface AirlineHeroProps {
 
 export default function AirlineHero({ airline }: AirlineHeroProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   
   // Extract airline name from the title
   const airlineName = airline.airline.name;
@@ -20,19 +21,23 @@ export default function AirlineHero({ airline }: AirlineHeroProps) {
   // Split the title to highlight the airline name
   const titleParts = airline.hero.title.split(airlineName);
 
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
   return (
     <section className="relative min-h-[70vh] flex items-center overflow-hidden pt-20 sm:pt-24">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/airlineshero.png"
+          src="/images/airlinesheroback.jpg"
           alt={`${airline.airline.name} flights - Ticket to Europe`}
           fill
-          className="object-cover object-center"
+          className="object-cover object-center scale-105 transition-transform duration-[2s] ease-out"
           priority
           quality={100}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/75" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/25" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" />
         <div className="absolute inset-0 bg-black/20" />
       </div>
@@ -48,7 +53,11 @@ export default function AirlineHero({ airline }: AirlineHeroProps) {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="w-full">
-          <h1 className="mb-4 sm:mb-5">
+          <h1 
+            className={`mb-4 sm:mb-5 transition-all duration-1000 ease-out ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
+            }`}
+          >
             {titleParts.length > 1 ? (
               // If airline name is found in title
               <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-[1.2] tracking-tight">
@@ -78,16 +87,27 @@ export default function AirlineHero({ airline }: AirlineHeroProps) {
             )}
           </h1>
 
-          <p className="text-white/70 text-sm sm:text-base md:text-lg italic w-full mb-4 sm:mb-6 font-light tracking-wide">
-           {airline.hero.subtitle}
+          <p 
+            className={`text-white/70 text-sm sm:text-base md:text-lg italic w-full mb-4 sm:mb-6 font-light tracking-wide transition-all duration-1000 ease-out delay-200 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
+            }`}
+          >
+            {airline.hero.subtitle}
           </p>
 
-          <p className="text-white/80 text-sm sm:text-base md:text-lg italic w-full mb-6 sm:mb-8 font-light tracking-wide leading-relaxed">
-            
-             {airline.hero.disclaimer}
+          <p 
+            className={`text-white/80 text-sm sm:text-base md:text-lg italic w-full mb-6 sm:mb-8 font-light tracking-wide leading-relaxed transition-all duration-1000 ease-out delay-300 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
+            }`}
+          >
+            {airline.hero.disclaimer}
           </p>
 
-          <div className="relative z-20 w-full">
+          <div 
+            className={`relative z-20 w-full transition-all duration-1000 ease-out delay-400 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+            }`}
+          >
             <SearchEngine />
           </div>
         </div>
@@ -102,7 +122,10 @@ export default function AirlineHero({ airline }: AirlineHeroProps) {
       />
 
       {/* Professional Floating Call Widget - Fixed hover behavior */}
-      <div className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center gap-3">
+      <div 
+        className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center gap-3"
+        style={{ pointerEvents: 'none' }}
+      >
         {/* Chat Card - Only appears when hovering the button directly */}
         <div
           className={`
@@ -169,7 +192,8 @@ export default function AirlineHero({ airline }: AirlineHeroProps) {
             will-change-transform
           "
           style={{
-            background: `linear-gradient(to right, #5e503f, #b8956e)`
+            background: `linear-gradient(to right, #5e503f, #b8956e)`,
+            pointerEvents: 'auto'
           }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}

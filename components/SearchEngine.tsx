@@ -264,11 +264,11 @@ export default function SearchEngine() {
         </div>
       )}
 
-      {/* Trip Type Toggle */}
-      <div className="flex items-center gap-1 mb-4">
+      {/* Trip Type Toggle - Fixed Width */}
+      <div className="flex items-center gap-1 mb-4 overflow-x-auto">
         <button
           onClick={() => setTripType("roundtrip")}
-          className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
+          className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 whitespace-nowrap ${
             tripType === "roundtrip"
               ? "text-white shadow-lg"
               : "hover:bg-[#eae0d5]"
@@ -285,7 +285,7 @@ export default function SearchEngine() {
         </button>
         <button
           onClick={() => setTripType("oneway")}
-          className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
+          className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 whitespace-nowrap ${
             tripType === "oneway"
               ? "text-white shadow-lg"
               : "hover:bg-[#eae0d5]"
@@ -302,7 +302,7 @@ export default function SearchEngine() {
         </button>
         <button
           onClick={() => setTripType("multicity")}
-          className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
+          className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 whitespace-nowrap ${
             tripType === "multicity"
               ? "text-white shadow-lg"
               : "hover:bg-[#eae0d5]"
