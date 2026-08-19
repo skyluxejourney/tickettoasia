@@ -32,11 +32,11 @@ export default function WhyPayMoreSection() {
   return (
     <section 
       ref={sectionRef}
-      className="py-12 sm:py-16 lg:py-20 overflow-hidden" 
+      className="pt-12 sm:pt-16 lg:pt-20 overflow-hidden" 
       style={{ backgroundColor: '#faf7f2' }}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Heading - Top Left */}
           <div 
             className={`mb-6 sm:mb-8 transition-all duration-700 ease-out ${

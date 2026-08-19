@@ -154,7 +154,7 @@ export default function Hero() {
           }
         `}
       >
-        <div className="shadow-2xl shadow-black/30">
+        <div className="shadow-lg shadow-black/20">
           <SearchEngine />
         </div>
       </div>

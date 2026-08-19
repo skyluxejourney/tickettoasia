@@ -392,13 +392,13 @@ export default function TravelDealsSection() {
             <button
               onClick={closeModal}
               className="absolute top-4 right-4 transition-colors z-10 hover:scale-110 active:scale-90"
-              style={{ color: '#2a242066' }}
+              style={{ color: 'white' }}
             >
               <X size={24} />
             </button>
 
             {/* Header */}
-            <div className="rounded-t-lg p-6 text-white" style={{
+            <div className=" p-6 text-white" style={{
               background: `linear-gradient(to right, #5e503f, #b8956e)`
             }}>
               <div className="flex items-center gap-3">

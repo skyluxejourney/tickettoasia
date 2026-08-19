@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import TravelDeals from "@/components/TravelDeals";
 import ExclusiveDeals from "@/components/ExclusiveDeals";
 import Whypaymore from "@/components/Whypaymoresection";
+import AsiaDestinationsCarousel from "@/components/AsiaDestinationsCarousel";
 import { COMPANY, CONTACT } from "./constants"
 
 
@@ -61,6 +62,7 @@ export default function Home() {
         <TravelDeals />
         <ExclusiveDeals />
         <Whypaymore />
+        <AsiaDestinationsCarousel />
       </main>
       <Footer />
     </>

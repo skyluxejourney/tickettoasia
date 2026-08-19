@@ -132,7 +132,7 @@ export default function AirlinePolicy({ airline }: AirlinePolicyProps) {
                 {/* Background */}
                 <div className="absolute inset-0">
                   <Image
-                    src="/images/changeflightposter.jpg"
+                    src="/images/flightposter.jpg"
                     alt={`Change or Cancel Flight - ${BRAND.name}`}
                     fill
                     className="object-cover object-center"
