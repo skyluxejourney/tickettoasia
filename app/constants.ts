@@ -9,13 +9,7 @@ export const COMPANY = {
   year: new Date().getFullYear(),
 };
 
-// Social Media Links
-export const SOCIAL = {
-  facebook: "https://facebook.com/tickettoasia",
-  twitter: "https://twitter.com/tickettoasia",
-  instagram: "https://instagram.com/tickettoasia",
-  youtube: "https://youtube.com/tickettoasia",
-};
+
 
 // Contact Information
 export const CONTACT = {
@@ -52,7 +46,7 @@ export const META = {
 
 export default {
   COMPANY,
-  SOCIAL,
+  
   CONTACT,
   BRAND,
   META,
