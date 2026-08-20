@@ -77,7 +77,7 @@ export default function AirlinePolicy({ airline }: AirlinePolicyProps) {
   return (
     <section 
       ref={sectionRef}
-      className="py-12 sm:py-16 overflow-hidden" 
+      className="py-12 sm:py-16" 
       style={{ backgroundColor: '#faf7f2' }}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -318,14 +318,15 @@ export default function AirlinePolicy({ airline }: AirlinePolicyProps) {
             </div>
           </div>
 
-          {/* Right Side - 30% - Image with Fine Black Line Box */}
+          {/* Right Side - 30% - STICKY Image with Fine Black Line Box */}
           <div 
-            className={`lg:w-[30%] flex items-start justify-center transition-all duration-700 ease-out ${
+            className={`lg:w-[30%] transition-all duration-700 ease-out ${
               isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
             }`}
             style={{ transitionDelay: '250ms' }}
           >
-            <div className="sticky top-24 w-full max-w-[400px]">
+            {/* ✅ STICKY CONTAINER - Image stays fixed while scrolling */}
+            <div className="lg:sticky lg:top-24 w-full max-w-[400px] mx-auto">
               <div className="p-0.5 bg-black/10">
                 <div className="border border-black/15 overflow-hidden transition-transform duration-500 hover:scale-105">
                   <Image

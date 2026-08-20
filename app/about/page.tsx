@@ -204,7 +204,7 @@ export default function AboutPage() {
             <span className="text-[#2a2420]/60">About Us</span>
           </nav>
 
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-auto mx-auto">
             {/* Header Section */}
             <div className="mb-8">
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight" style={{ color: '#3d3226' }}>
@@ -236,19 +236,19 @@ export default function AboutPage() {
                       {section.title}
                     </h2>
                   </div>
-                  <div className="text-sm sm:text-base leading-relaxed ml-11 text-justify" style={{ color: '#2a242099' }}>
+                  <div className="text-sm sm:text-base leading-relaxed ml-0 sm:ml-11 text-left" style={{ color: '#2a242099' }}>
                     {Array.isArray(section.content) ? (
                       <div className={isTwoColumn ? "grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3" : "space-y-3"}>
                         {section.content.map((paragraph, pIndex) => {
-                          // 1. Empty spacer
+                          // Empty spacer
                           if (paragraph === "") {
                             return <div key={pIndex} className="h-2 col-span-2" />;
                           }
 
-                          // 2. Render bullet point (Themed Dot)
+                          // Render bullet point (Themed Dot)
                           if (paragraph.startsWith("•")) {
                             return (
-                              <div key={pIndex} className="flex items-start gap-2 col-span-2 md:col-span-1 text-justify">
+                              <div key={pIndex} className="flex items-start gap-2 col-span-2 md:col-span-1 text-left">
                                 <div 
                                   className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0"
                                   style={{ backgroundColor: '#5e503f' }}
@@ -260,9 +260,9 @@ export default function AboutPage() {
                             );
                           }
 
-                          // 3. Normal paragraph
+                          // Normal paragraph
                           return (
-                            <p key={pIndex} className="col-span-2 leading-relaxed" style={{ color: '#2a242099' }}>
+                            <p key={pIndex} className="col-span-2 leading-relaxed text-left" style={{ color: '#2a242099' }}>
                               {paragraph}
                             </p>
                           );

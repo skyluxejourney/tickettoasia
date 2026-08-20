@@ -102,7 +102,7 @@ export default function SitemapPage() {
             <span className="text-[#2a2420]/60">Sitemap</span>
           </nav>
 
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-auto mx-auto">
             {/* Header Section */}
             <div className="mb-8">
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight" style={{ color: '#3d3226' }}>

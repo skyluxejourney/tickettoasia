@@ -131,7 +131,7 @@ export default function Hero() {
           -translate-x-1/2
           z-30
           w-full
-          max-w-6xl
+          max-w-7xl
           px-4 sm:px-6 lg:px-8
 
           /* Desktop - unchanged */

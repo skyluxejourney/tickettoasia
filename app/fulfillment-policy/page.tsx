@@ -377,7 +377,7 @@ export default function FulfillmentPage() {
             <span className="text-[#2a2420]/60">Fulfillment Policy</span>
           </nav>
 
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-auto mx-auto">
             {/* Header Section */}
             <div className="mb-8">
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight" style={{ color: '#3d3226' }}>
@@ -409,7 +409,7 @@ export default function FulfillmentPage() {
                       {section.title}
                     </h2>
                   </div>
-                  <div className="text-sm sm:text-base leading-relaxed ml-11 text-justify" style={{ color: '#2a242099' }}>
+                  <div className="text-sm sm:text-base leading-relaxed ml-0 sm:ml-11 text-justify" style={{ color: '#2a242099' }}>
                     {Array.isArray(section.content) ? (
                       <div className={isTwoColumn ? "grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3" : "space-y-3"}>
                         {section.content.map((paragraph, pIndex) => {
