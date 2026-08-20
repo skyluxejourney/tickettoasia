@@ -219,7 +219,7 @@ export default function ExclusiveDealsPoster() {
               style={{ transitionDelay: '300ms' }}
             >
               <img
-                src="/images/exclusive.png"
+                src="/images/exclusiveimage.png"
                 alt="Exclusive Travel Deals"
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
               />

@@ -30,7 +30,7 @@ export default function AirlineHero({ airline }: AirlineHeroProps) {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/airlinesheroback.jpg"
+          src="/images/airlinesherobackimage.jpg"
           alt={`${airline.airline.name} flights - Ticket to Europe`}
           fill
           className="object-cover object-center scale-105 transition-transform duration-[2s] ease-out"
